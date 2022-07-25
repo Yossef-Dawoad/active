@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <!-- <input type="submit" value="esp lock/unlock" id="esp"> -->
+    <input type="submit" value="ws lock/unlock" id = "hittheapi">
+
+
+    <script>
+
+        let btn = document.querySelector('#hittheapi');
+
+        const socket = new WebSocket(
+            `ws://${window.location.host}/ws/activelock/`
+        );
+
+        socket.onmessage = function (e) {
+            const wsdata = JSON.parse(e.data);
+            console.log(wsdata)
+
+            //    update button state 
+        };
+
+        socket.onclose = function (e) {
+            console.error('websocket closed unexpectedly');
+            console.error(e);
+        };
+
+        btn.onclick = function(e){
+
+            fetch(`http://${window.location.host}/last-state/`)
+                .then(res => res.json())
+                    .then(data => {
+                        socket.send(
+                            JSON.stringify({
+                                "message":{
+                                    "state":data['state'],
+                                    "validated": true
+                                }
+                            })
+                    );
+                }).catch(error => console.log(error));
+            // update button state
+        }
+
+
+
+
+        // 
+        //     //connect to websock
+        //     socket.onmessage = function(e)
+        //         message = e.data
+
+
+
+        //         //simpler version
+        // client websoket -> link
+        // onmessage
+        //             // message['state'] = !message['state']
+        //             // message['validate'] = true
+        //             // socket.send(message)
+
+        //         // right version
+        //             //def function that check servo in state open or not -> check the angle
+        //             // if return == the state sended (somthing wrong) -> it's request
+        //             //      don't move servo
+        //             //      state = !state  
+        //             //      send data back with validated = true
+        //             // else
+        //             //      move servo
+        //             //      send data back validated = true
+
+        //     }
+        // }
+
+    </script>
+
+</body>
+
+</html>
+
+

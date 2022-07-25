@@ -1,0 +1,9 @@
+static/recordings/
+.idea/
+active-venv/
+__pycache__/
+._*
+env/
+.env
+*.pyc
+*.py[cod]
