@@ -1,4 +1,4 @@
-static/recordings/
+static/recordings/*
 .idea/
 active-venv/
 __pycache__/

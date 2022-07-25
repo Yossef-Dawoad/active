@@ -5,7 +5,7 @@
 ## Installation
 - you have to install on your machine:
   - python 3
-  - Redis 
+  - Redis  
 you can run the following to make sure that they are installed 
 ```bash
 python --version
@@ -19,6 +19,13 @@ run the following command to install all required libraries you need
 `**Note** run the command in the repo Directory`
 ```bash
 pip install -r requirements.txt
+```
+
+you also have to create `.env` file in `active/project` and write inside
+```
+mailsender=<youremail>@gmail.com
+senderpasscode=<gmail applicaton password>
+secretkey=<your django-secret key>
 ```
 
 ## Run the Project 
