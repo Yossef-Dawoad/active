@@ -14,6 +14,17 @@ python --version
 ```bash
 redis-server --version
 ```
+**Note** 
+in Linux you need to configure `redis.conf` file if you wan to allow remote connection  
+in `sudo nano /etc/redis/redis.conf` set 
+```bash
+supervised sysmd
+bind 0.0.0.0
+```
+and then restart the service by running 
+```
+sudo systemctl restart redis.service
+```
 after you make sure they are installed 
 run the following command to install all required libraries you need  
 `**Note** run the command in the repo Directory`
