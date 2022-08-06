@@ -73,7 +73,7 @@
         <section class="site-section stream">
           <div class="row m-3">
             <div class="col-md-9 themed-grid-col">
-              <h2 class="heading text-uppercase text-dark">Streaming</h2>
+              <h3 class="text-dark">Streaming</h3>
               <article class="col-12 my-3 py-3 aos-init stream aos-animate" data-aos="fade-up">
                 <figure>
                   <a href="https://www.youtube.com/embed/w36ZmkgkPww" class="d-block photo-item"
@@ -91,8 +91,9 @@
             <div class="col-md-3 themed-grid-col">
               <div class="pb-3">
                 <article class="col-12 my-3 py-3 aos-init stream aos-animate" data-aos="fade-up">
-                  <h1> Recognized Faces </h1>
+                  <h3> Recognized Faces </h3>
                   <p id="facerecognized"></p>
+                  <hr>
                   <h3 class="font-weight-light text-dark text-center mb-3">
                     Last Videos
                   </h3>
@@ -236,7 +237,7 @@
 
     socket_lock.onmessage = function (e) {
       const wsdata = JSON.parse(e.data);
-      // console.log(wsdata)
+      console.log(wsdata);
       //    update button state 
     };
 
@@ -253,8 +254,8 @@
                               {
                                 "message":{
                                   "state": !data['state'],
-                                  "validated": false,
-                                  // "method": "web"
+                                  "validated": true,
+                                  "method": "web-toggle"
                                 }
                               }
                             )
@@ -282,13 +283,12 @@
                     {
                       "message":{
                         "state": true,
-                        "validated": false,
-                        "method": "face-detection"
+                        "validated": true,
+                        "method": "face-recog"
                       }
                     }
               )
-          )
-          btn.click();
+          ) 
         }
         facerecog.innerHTML = detectedfaces;
         // console.log(detectedfaces);

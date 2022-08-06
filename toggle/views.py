@@ -33,7 +33,7 @@ def listall_states(request):
     elif limit is not None:
         states = ActiveLock.objects.all()[:int(limit)]
     else:
-        states = ActiveLock.objects.all()
+        states = ActiveLock.objects.all().order_by("-id")
         
     serializer = ActiveLockObjSerializer(states, many=serializeMany)
     return response.Response({'state_hist':serializer.data})  

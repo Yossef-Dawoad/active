@@ -46,7 +46,13 @@ you can either run it with single command `experimental LINUX only`
 ```
 or you can write the following in `**3 different terminals**`   
 **Note Order matter**
-
+```bash
+python manage.py makemigraton
+python manage.py migrate
+```
+```bash
+python manage.py createsuperuser
+```
 ```bash
 redis-server
 ```

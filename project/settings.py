@@ -78,6 +78,7 @@ TEMPLATES = [
     },
 ]
 
+REDIS_SERVER_IP = '127.0.0.1'
 WSGI_APPLICATION = 'rfid_project.wsgi.application'
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/'
@@ -90,7 +91,7 @@ CHANNEL_LAYERS = {
         # "BACKEND": "channels.layers.InMemoryChannelLayer"
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [(REDIS_SERVER_IP, 6379)],
             # "hosts": [('192.168.137.4', 6379)],
         },
     },
@@ -163,8 +164,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ################################# celery setup
-CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
-CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0" #OR 'django-db' for normal db access
+CELERY_BROKER_URL = f"redis://{REDIS_SERVER_IP}:6379/0"
+CELERY_RESULT_BACKEND = f"redis://{REDIS_SERVER_IP}:6379/0" #OR 'django-db' for normal db access
 CELERY_ACCEPT_CONTENT = ['pickle']
 CELERY_TASK_SERIALIZER  = 'pickle'
 

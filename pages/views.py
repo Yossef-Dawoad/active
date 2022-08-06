@@ -10,12 +10,12 @@ from .serializers import RecordedVideosObjSerializer
 def indexview(request):
 
     ######################## Pagination
-    videos_list = RecordedVideos.objects.all()
+    videos_list = RecordedVideos.objects.all().order_by("-id")
     paginator = Paginator(videos_list, 6) # Show 6 videos per page.
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'pages/index.html', {'pageObj': page_obj, 'last_videos':videos_list.order_by('-id')[:2]})
+    return render(request, 'pages/index.html', {'pageObj': page_obj, 'last_videos':videos_list[:2]})
     
 
 @decorators.api_view(['GET'])

@@ -1,4 +1,5 @@
 static/recordings/*
+!static/recordings/images/
 .idea/
 active-venv/
 __pycache__/
@@ -7,3 +8,4 @@ env/
 .env
 *.pyc
 *.py[cod]
+db.sqlite

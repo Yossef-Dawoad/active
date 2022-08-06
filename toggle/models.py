@@ -7,7 +7,7 @@ class ActiveLock(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     state = models.BooleanField()
     validated = models.BooleanField()
-    # method = models.CharField(max_length=200, default='None')
+    method = models.CharField(max_length=200, default='None')
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
