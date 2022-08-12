@@ -22,7 +22,7 @@ def indexview(request):
 def listall_videos(request):
     records = RecordedVideos.objects.all()
     serializer = RecordedVideosObjSerializer(records, many=True)
-    return response.Response({'videos_hist':serializer.data})
+    return response.Response(serializer.data)
 
 @decorators.api_view(['GET', 'POST'])
 def last_recordedvideo(request):

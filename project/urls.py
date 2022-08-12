@@ -26,5 +26,5 @@ urlpatterns = [
     re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     path('', include("toggle.urls")),
     path('', include('attendance.urls'), name='ad_index'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

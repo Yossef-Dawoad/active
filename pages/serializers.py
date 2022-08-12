@@ -9,3 +9,5 @@ class RecordedVideosObjSerializer(serializers.ModelSerializer):
         model = RecordedVideos
         fields = '__all__'
         read_only_fields = ['id', 'created_in']
+
+

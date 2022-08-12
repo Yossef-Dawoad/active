@@ -1,5 +1,6 @@
-static/recordings/videos/*
-!static/recordings/images
+media/events/**
+!media/events/
+static/recordings/
 .idea/
 active-venv/
 __pycache__/

@@ -21,8 +21,6 @@ def readfromfile():
 
 
 
-
-
 def decode_byte_frame(framebytes: bytes) -> np.ndarray:
     '''function that convert binary image(bytes) to numpy array'''
     arr =  np.frombuffer(framebytes, dtype=np.int8) # convert bytes into array of int8
@@ -31,7 +29,7 @@ def decode_byte_frame(framebytes: bytes) -> np.ndarray:
 
 
 
-################################################################################
+################################################################################ time tracker class 
 class TimeTracker:
     def __init__(self) -> None:
         ''' set a banch of time marker to use '''
@@ -118,6 +116,54 @@ def peektoGenerator(iterable):
     except StopIteration:
         return None
     return firstobj, itertools.chain([firstobj], iterable) ##### chain list of iterable
+
+
+
+
+
+
+
+##################################################### object detection class
+
+class ObjectDetection:
+    def __init__(self) -> None:
+        mobileNetV3 = find("mlmodels/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt") # model paramters
+        mobileNetV3Weights= find("mlmodels/frozen_inference_graph.pb") # model layers configs
+
+        # mobileNetV3 = "./models/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt"
+        # mobileNetV3Weights = "./models/frozen_inference_graph.pb"
+        self.net = cv2.dnn_DetectionModel(mobileNetV3, mobileNetV3Weights)
+        self.net.setInputSize(320, 320)
+        self.net.setInputScale(1.0/127.5)
+        self.net.setInputMean((127.5, 127.5, 127.5))
+        self.net.setInputSwapRB(True)
+        self.readClasses()
+
+    def readClasses(self):
+        _coconames_file = find('mlmodels/coco.names')
+        with open(_coconames_file, 'rt') as f:
+            self.cocoClasses = f.read().splitlines()
+        self.cocoClasses.insert(0, "__Background__")
+    
+    def findObj(self, frame, confidance=0.6):
+        clsLabelids, confs, bbox = self.net.detect(frame, confThreshold = confidance)
+        if len(clsLabelids) <= 0:
+            return None
+
+        for label,conf, box in zip(clsLabelids.flatten(), confs, bbox):
+            yield label,conf, box
+
+
+
+
+
+#####################################################
+
+
+
+
+
+
 
 
 

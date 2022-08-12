@@ -46,6 +46,8 @@ class ActiveLockHandlerConsumer(AsyncWebsocketConsumer):
                     'message': event['message']
                 }))
 
+
+
     @sync_to_async
     def save_Event_db(self, event):     
         # message["user"] = self.scope['user']

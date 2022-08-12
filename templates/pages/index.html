@@ -247,7 +247,7 @@
     };
 
     function getLastState_sendRequest(){
-      fetch(`http://${window.location.host}/lock_api/last-state/`)
+      fetch(`http://${window.location.host}/api/lock/last-record/`)
           .then(response => response.json())
           .then(data => socket_lock.send(
                             JSON.stringify(

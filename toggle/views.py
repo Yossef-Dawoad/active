@@ -36,7 +36,7 @@ def listall_states(request):
         states = ActiveLock.objects.all().order_by("-id")
         
     serializer = ActiveLockObjSerializer(states, many=serializeMany)
-    return response.Response({'state_hist':serializer.data})  
+    return response.Response(serializer.data)  
 
 
 

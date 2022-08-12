@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     "rest_framework",
     'pages',
     'attendance',
-    "toggle.apps.ToggleConfig"
+    "toggle.apps.ToggleConfig",
+
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                
             ],
         },
     },
@@ -144,11 +147,16 @@ USE_TZ = True
 
 ##################################### Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-# STATIC_ROOT =os.path.join(BASE_DIR,'static')
+STATIC_ROOT =os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     BASE_DIR.joinpath("static") ,
 )
+
+MEDIA_ROOT = BASE_DIR.joinpath('media')
+MEDIA_URL = '/media/'
+
+
 
 ################################ `cross-origin` and `csrf` setup for deployments 
 # CSRF_TRUSTED_ORIGINS = []
@@ -166,7 +174,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ################################# celery setup
 CELERY_BROKER_URL = f"redis://{REDIS_SERVER_IP}:6379/0"
 CELERY_RESULT_BACKEND = f"redis://{REDIS_SERVER_IP}:6379/0" #OR 'django-db' for normal db access
-CELERY_ACCEPT_CONTENT = ['pickle']
+CELERY_ACCEPT_CONTENT = ['pickle', 'json','application/text']
 CELERY_TASK_SERIALIZER  = 'pickle'
 
 

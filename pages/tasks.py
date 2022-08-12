@@ -4,6 +4,7 @@ import csv
 import os
 import pickle
 from pathlib import Path
+from random import randint
 import numpy as np
 from celery import shared_task
 import cv2
@@ -121,6 +122,59 @@ def process_frame_Task(frame):
             )
         # return facesreconized
 
+#############################################################################################
+#############################################################################################
+#############################################################################################
+@shared_task
+def process_frame_faceRecogTask(frame):
+    facedetected = facedetecotor.detect(frame)
+    ###################################face-recognitions
+    facesreconized = []
+    if facedetected:
+        # print("face has been detected")
+        for (x, y, facewidth, faceheight) in facedetected:
+            faceROI = frame[y:faceheight, x:facewidth]
+            faceVecId = facedembedder.embedFace(faceROI)
+            predictedsvmnames = faceRecognizer.predict_proba(faceVecId)[0] # svm prediction of the embeds
+            nameId_index = np.argmax(predictedsvmnames)
+            faceName = labelEncoder.classes_[nameId_index]
+            facesreconized.append(faceName)
+
+        #################### send the data to the clients browser
+        # channel_layer = get_channel_layer()
+        # async_to_sync(channel_layer.group_send)(
+        #     'video_channel', {
+        #             'type': 'task_recognize',
+        #             'data': facesreconized
+        #         },    
+        #     )
+        return facesreconized
+
+    return None
+
+
+from static.processingtools.utils import ObjectDetection
+
+objdetector = ObjectDetection()
+cococlasses = objdetector.cocoClasses
+randint(0,255)
+classColors = [(randint(0,255), randint(0,255), randint(0,255)) for _ in range(91)]
+
+@shared_task
+def process_frame_objectDetectTask(frame) -> (list | None):
+    objs_Iter = objdetector.findObj(frame,confidance= 0.7)
+    ###################################face-recognitions
+
+    objects_in_frame = [cococlasses[labelIdx] for labelIdx, _, _ in objs_Iter]
+    print(f"object is not none {objects_in_frame}")
+    return objects_in_frame
+
+
+
+
+#############################################################################################
+#############################################################################################
+#############################################################################################
 
 
 ###################################################### send email

@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class RecordedVideos(models.Model):
     title = models.CharField(max_length=200)
-    url = models.TextField()
+    video_url = models.CharField(max_length=400)
     created_in = models.DateTimeField(auto_now=True)
     # lenght = function calc the lenght of the video
 
