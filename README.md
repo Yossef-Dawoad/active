@@ -6,6 +6,8 @@
 - you have to install on your machine:
   - python 3
   - Redis  
+  - ffmpeg
+  
 you can run the following to make sure that they are installed 
 ```bash
 python --version
