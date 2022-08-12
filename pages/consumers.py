@@ -234,7 +234,7 @@ class VideoHandlerConsumer(AsyncWebsocketConsumer):
         newvideorecord = RecordedVideosObjSerializer(
             data={
                 "title" : str(self.outputvideo.parts[-1]), 
-                "video_url" : f"{self.scope['server'][0]}/" + str(self.outputvideo) #DEBUG
+                "video_url" :  str(self.outputvideo) #DEBUG f"{self.scope['server'][0]}/"
             }
         )
         
